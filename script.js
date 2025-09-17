@@ -3,6 +3,9 @@ const subtitleEl = document.getElementById('subtitle');
 const nameEl = document.getElementById('nameLine');
 const card = document.getElementById('card');
 
+// ⭐ get portrait element
+const portraitEl = document.querySelector('.portrait img');
+
 let typingSpeed = 90;
 let continuousPop = true;
 let typingTimeouts = [];
@@ -26,12 +29,16 @@ function playTyping(){
   clearTyping();
   nameEl.textContent = '';
   subtitleEl.style.opacity = 0; subtitleEl.style.transform = 'translateY(6px)';
+  
+  // ⭐ remove heartbeat when replay starts
+  if(portraitEl) portraitEl.classList.remove('heartbeat-active');
+  
   let idx = 0;
   function typeNext(){
     if(idx <= fullName.length){
       nameEl.textContent = fullName.slice(0, idx);
       const char = fullName[idx-1];
-      if(char && /[aeiouAEIOU\\s\\.\\-]/.test(char)){
+      if(char && /[aeiouAEIOU\s\.\-]/.test(char)){
         const rect = nameEl.getBoundingClientRect();
         const x = rect.left + (idx/fullName.length)*rect.width - card.getBoundingClientRect().left;
         const y = rect.top + rect.height/2 - card.getBoundingClientRect().top;
@@ -43,6 +50,10 @@ function playTyping(){
     } else {
       subtitleEl.style.transition = 'opacity 420ms ease, transform 420ms ease';
       subtitleEl.style.opacity = 1; subtitleEl.style.transform = 'translateY(0)';
+      
+      // ⭐ start heartbeat after typing finishes
+      if(portraitEl) portraitEl.classList.add('heartbeat-active');
+
       if(continuousPop) startContinuousPops();
     }
   }
