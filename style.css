@@ -1,8 +1,10 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: "Comic Sans MS", cursive, sans-serif;
-  background: linear-gradient(135deg, #ffe4ec, #a4f4e0);
+  font-family: "Poppins", "Comic Sans MS", cursive, sans-serif;
+  background: linear-gradient(135deg, #ffd6e8, #d6f0ff, #ffe7c7);
+  background-size: 400% 400%;
+  animation: bgFlow 12s ease infinite;
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -10,41 +12,55 @@ body {
   overflow: hidden;
 }
 
-/* Main container */
+@keyframes bgFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Container */
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1.5rem;
   padding: 1rem;
-  max-width: 95%;
+  text-align: center;
 }
 
-/* Portrait with real photo */
+/* 💖 Portrait with glow */
 .portrait {
-  width: 35vw;             /* scales with screen */
-  max-width: 160px;        /* never too big */
-  min-width: 90px;         /* never too small */
-  aspect-ratio: 1 / 1;     /* always a circle */
+  width: 35vw;
+  max-width: 160px;
+  min-width: 90px;
+  aspect-ratio: 1 / 1;
   border-radius: 50%;
   overflow: hidden;
-  border: 4px dashed #fff;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  border: 5px solid #fff;
+  box-shadow: 0 0 25px rgba(255, 182, 193, 0.6),
+              0 0 40px rgba(173, 216, 230, 0.4);
   position: relative;
+  animation: pulseGlow 3s infinite alternate ease-in-out;
+}
+
+@keyframes pulseGlow {
+  from { box-shadow: 0 0 20px rgba(255, 182, 193, 0.4); }
+  to   { box-shadow: 0 0 35px rgba(255, 182, 193, 0.8),
+                 0 0 60px rgba(173, 216, 230, 0.6); }
 }
 
 .portrait img {
   width: 100%;
   height: 100%;
-  object-fit: cover;       /* no squish, fills circle */
+  object-fit: cover;
 }
 
-/* Nursing badge */
+/* 🩺 Nursing badge */
 .portrait::after {
   content: "🩺";
   position: absolute;
-  bottom: -10px;
-  right: -10px;
+  bottom: -8px;
+  right: -8px;
   font-size: 28px;
   background: #fff;
   border-radius: 50%;
@@ -52,32 +68,39 @@ body {
   box-shadow: 0 3px 6px rgba(0,0,0,0.2);
 }
 
-/* Profile card */
+/* 📌 Card styling */
 .card {
-  background: #fff;
-  border-radius: 20px;
-  padding: 1rem 2rem;
-  text-align: center;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  border-radius: 25px;
+  padding: 1.2rem 2rem;
+  box-shadow: 0 6px 25px rgba(0,0,0,0.15);
   max-width: 90%;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
 
 .typing {
-  font-size: 1.5rem;
-  font-weight: bold;
+  font-size: 1.6rem;
+  font-weight: 600;
   color: #ff69b4;
+  text-shadow: 0 0 8px rgba(255, 105, 180, 0.6);
   min-height: 2.5rem;
-  word-wrap: break-word;
+  animation: heartbeat 2s infinite;
 }
 
-/* Floating emojis */
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* 🌸 Floating emojis */
 .emoji {
   position: absolute;
-  animation: float 4s linear forwards;
+  animation: float 5s linear forwards;
   pointer-events: none;
+  opacity: 0.9;
 }
 
 @keyframes float {
   0% { transform: translateY(0) scale(1); opacity: 1; }
-  100% { transform: translateY(-200px) scale(1.5); opacity: 0; }
+  100% { transform: translateY(-250px) scale(1.4); opacity: 0; }
 }
