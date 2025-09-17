@@ -44,6 +44,21 @@
     font-size:60px;color:#fff;
     box-shadow:0 6px 20px rgba(0,0,0,0.1);
     border:4px dashed #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .portrait img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .portrait .emoji {
+    position: relative;
+    z-index: 2;
   }
   .copy{flex:1;min-width:0;}
   .name-line{
@@ -93,30 +108,20 @@
     .name-line{font-size:26px}
   }
 
-  .portrait {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .portrait img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-
-  .portrait .emoji {
-    position: relative;
-    z-index: 2;
-  }
-
-
-  @media (max-width: 640px) {
-    .portrait img {
-      width: 100%;
-      height: 100%;
+  /* === Heartbeat glow for portrait image === */
+  @keyframes heartbeatGlow {
+    0%, 100% {
+      transform: scale(1);
+      box-shadow: 0 0 8px rgba(255,182,193,0.6),
+                  0 0 16px rgba(255,182,193,0.4);
     }
+    50% {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(255,105,180,0.8),
+                  0 0 30px rgba(255,105,180,0.5);
+    }
+  }
+
+  .portrait img.heartbeat-active {
+    animation: heartbeatGlow 2.5s infinite ease-in-out;
   }
